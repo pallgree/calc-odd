@@ -28,7 +28,7 @@ const payout = [0, 0, 0]
 const liquidity = 100000
 const margin = 0.05 * 2/3
 
-let odds = [6, 2, 3]
+let odds = [1, 30, 3]
 const fund = calcFund(liquidity, odds)
 console.log()
 console.log('init fund:', fund)
@@ -120,7 +120,7 @@ payout[0] += amount * newOdd1
 
 
 // bet out come 1
-amount = 200000000
+amount = 88000
 funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
 funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
 funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
@@ -137,4 +137,4 @@ netBet[0] += amount
 payout[0] += amount * newOdd1
 
 console.log('total net bet', netBet[0] +netBet[1] + netBet[2]   )
-console.log('liquidity', liquidity  )
+console.log('liquidity', liquidity )
