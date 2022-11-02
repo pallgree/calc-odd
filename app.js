@@ -25,7 +25,7 @@ const calculateOddwithMargin = (odds, margin) => {
     ]
 }
 
-const calcFund = (liquidity, odds) => {
+const calcInitFund = (liquidity, odds) => {
     const totalOdds = odds[0] + odds[1] + odds[2]
     const fund0 = (liquidity * (odds[1] + odds[2])) / (totalOdds * 2)
     const fund1 = (liquidity * (odds[0] + odds[2])) / (totalOdds * 2)
@@ -34,7 +34,7 @@ const calcFund = (liquidity, odds) => {
 }
 
 let odds = [1.314, 8.211, 8.534]
-let fund = calcFund(liquidity, odds)
+let fund = calcInitFund(liquidity, odds)
 const initFund = fund
 console.log()
 console.log('init fund:', fund)
@@ -45,26 +45,32 @@ const putBet = (amount, outcome) => {
     let _amount = amount[0] + amount[1] + amount[2]
     console.log('place bet amount :', _amount, 'and outcome :', outcome)
     fundBankX =
-        fund[1] + (netBet[0] + netBet[2] - payOut[0] - payOut[2] )/2 + amount[1]
+        fund[1] +
+        (netBet[0] + netBet[2] - payOut[0] - payOut[2]) / 2 +
+        amount[1]
     fundBank1 =
-        fund[0] + (netBet[1] + netBet[2] - payOut[1] - payOut[2])/2 + amount[0]
+        fund[0] +
+        (netBet[1] + netBet[2] - payOut[1] - payOut[2]) / 2 +
+        amount[0]
     fundBank2 =
-        fund[2] + (netBet[0] + netBet[1] - payOut[0] - payOut[1])/2 + amount[2]
+        fund[2] +
+        (netBet[0] + netBet[1] - payOut[0] - payOut[1]) / 2 +
+        amount[2]
 
-    let totalFund =   fundBankX + fundBank1 + fundBank2 
-     let _newOdd2 = totalFund / fundBank2
+    let totalFund = fundBankX + fundBank1 + fundBank2
+    let _newOdd2 = totalFund / fundBank2
     let _newOdd1 = totalFund / fundBank1
     let _newOddx = totalFund / fundBankX
     console.log('odd no margin :', [_newOdd1, _newOddx, _newOdd2])
-    let newodds = calculateOddwithMargin([_newOdd1, _newOddx, _newOdd2], margin)
-    console.log('odd have margin :', newodds)
+    let odds = calculateOddwithMargin([_newOdd1, _newOddx, _newOdd2], margin)
+    console.log('odd have margin :', odds)
     console.log(
         ' ==> 1 + m : ',
-        1 / newodds[0] + 1 / newodds[1] + 1 / newodds[2]
+        1 / odds[0] + 1 / odds[1] + 1 / odds[2]
     )
     fund[outcome] += _amount
     netBet[outcome] += _amount
-    payOut[outcome] += _amount * newodds[outcome]
+    payOut[outcome] += _amount * odds[outcome]
     console.log('fund :', fund[0], fund[1], fund[2])
     console.log('netBet :', netBet[0], netBet[1], netBet[2])
     console.log('payOut :', payOut[0], payOut[1], payOut[2])
@@ -82,23 +88,19 @@ const test = [
     {
         amount: [100, 0, 0],
         outcome: 0,
-    }
-    ,
+    },
     {
         amount: [400, 0, 0],
         outcome: 0,
-    }
-    ,
+    },
     {
         amount: [100, 0, 0],
         outcome: 0,
-    }
-    ,
+    },
     {
         amount: [100, 0, 0],
         outcome: 0,
-    }
-    
+    },
 ]
 
 test.map((item) => {
