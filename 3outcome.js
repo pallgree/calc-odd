@@ -26,7 +26,7 @@ const calcFund = (liquidity, odds) => {
 const netBet = [0, 0, 0]
 const payout = [0, 0, 0]
 const liquidity = 100000
-const margin = 0.05 * 2/3
+const margin = (0.05 * 2) / 3
 
 let odds = [1, 30, 3]
 const fund = calcFund(liquidity, odds)
@@ -35,14 +35,14 @@ console.log('init fund:', fund)
 
 // bet out come 2
 let amount = 200
-let funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-let funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-let funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
+let funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+let funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+let funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
 
 let totalFund = funbank1 + funbankx + funbank2 + amount
-let newOdd1 = calculateOdd(totalFund / funbank1 ,margin)
-let newOddx = calculateOdd(totalFund / funbankx,margin)
-let newOdd2 = calculateOdd(totalFund / (funbank2 + amount),margin)
+let newOdd1 = calculateOdd(totalFund / funbank1, margin)
+let newOddx = calculateOdd(totalFund / funbankx, margin)
+let newOdd2 = calculateOdd(totalFund / (funbank2 + amount), margin)
 console.log('new odd :', newOdd1, newOddx, newOdd2)
 console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
 
@@ -52,14 +52,14 @@ payout[2] += amount * newOdd2
 
 // bet out come 2
 amount = 500
-funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
+funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
 
 totalFund = funbank1 + funbankx + funbank2 + amount
-newOdd1 = calculateOdd(totalFund / funbank1,margin)
-newOddx = calculateOdd(totalFund / funbankx,margin)
-newOdd2 = calculateOdd(totalFund / (funbank2 + amount),margin)
+newOdd1 = calculateOdd(totalFund / funbank1, margin)
+newOddx = calculateOdd(totalFund / funbankx, margin)
+newOdd2 = calculateOdd(totalFund / (funbank2 + amount), margin)
 console.log('new odd :', newOdd1, newOddx, newOdd2)
 console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
 
@@ -69,14 +69,14 @@ payout[2] += amount * newOdd2
 
 // bet out come 2
 amount = 500
-funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
+funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
 
 totalFund = funbank1 + funbankx + funbank2 + amount
-newOdd1 = calculateOdd(totalFund / funbank1,margin)
-newOddx = calculateOdd(totalFund / funbankx,margin)
-newOdd2 = calculateOdd(totalFund / (funbank2 + amount),margin)
+newOdd1 = calculateOdd(totalFund / funbank1, margin)
+newOddx = calculateOdd(totalFund / funbankx, margin)
+newOdd2 = calculateOdd(totalFund / (funbank2 + amount), margin)
 console.log('new odd :', newOdd1, newOddx, newOdd2)
 console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
 
@@ -86,31 +86,48 @@ payout[2] += amount * newOdd2
 
 // bet out come 1
 amount = 500
-funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
+funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
 
 totalFund = funbank1 + funbankx + funbank2 + amount
-newOdd1 = calculateOdd(totalFund / (funbank1+ amount),margin)
-newOddx = calculateOdd(totalFund / funbankx,margin)
-newOdd2 = calculateOdd(totalFund / (funbank2),margin)
+newOdd1 = calculateOdd(totalFund / (funbank1 + amount), margin)
+newOddx = calculateOdd(totalFund / funbankx, margin)
+newOdd2 = calculateOdd(totalFund / funbank2, margin)
 console.log('new odd :', newOdd1, newOddx, newOdd2)
 console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
 
 fund[0] += amount
 netBet[0] += amount
 payout[0] += amount * newOdd1
+
+// bet out come x
+amount = 29000
+funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
+
+totalFund = funbank1 + funbankx + funbank2 + amount
+newOdd1 = calculateOdd(totalFund / funbank1, margin)
+newOddx = calculateOdd(totalFund / (funbankx + amount), margin)
+newOdd2 = calculateOdd(totalFund / funbank2, margin)
+console.log('new odd :', newOdd1, newOddx, newOdd2)
+console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
+
+fund[0] += amount
+netBet[0] += amount
+payout[0] += amount * newOddx
 
 // bet out come 1
-amount = 10000
-funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
+amount = 200
+funbankx = fund[1] + (netBet[0] + netBet[2] - payout[0] - payout[2]) / 2
+funbank1 = fund[0] + (netBet[1] + netBet[2] - payout[1] - payout[2]) / 2
+funbank2 = fund[2] + (netBet[0] + netBet[1] - payout[0] - payout[1]) / 2
 
 totalFund = funbank1 + funbankx + funbank2 + amount
-newOdd1 = calculateOdd(totalFund / (funbank1+ amount),margin)
-newOddx = calculateOdd(totalFund / funbankx,margin)
-newOdd2 = calculateOdd(totalFund / (funbank2),margin)
+newOdd1 = calculateOdd(totalFund / (funbank1 + amount), margin)
+newOddx = calculateOdd(totalFund / funbankx, margin)
+newOdd2 = calculateOdd(totalFund / funbank2, margin)
 console.log('new odd :', newOdd1, newOddx, newOdd2)
 console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
 
@@ -118,23 +135,6 @@ fund[0] += amount
 netBet[0] += amount
 payout[0] += amount * newOdd1
 
-
-// bet out come 1
-amount = 88000
-funbankx = fund[1] + netBet[0] + netBet[2] - payout[0] - payout[2]
-funbank1 = fund[0] + netBet[1] + netBet[2] - payout[1] - payout[2]
-funbank2 = fund[2] + netBet[0] + netBet[1] - payout[0] - payout[1]
-
-totalFund = funbank1 + funbankx + funbank2 + amount
-newOdd1 = calculateOdd(totalFund / (funbank1+ amount),margin)
-newOddx = calculateOdd(totalFund / funbankx,margin)
-newOdd2 = calculateOdd(totalFund / (funbank2),margin)
-console.log('new odd :', newOdd1, newOddx, newOdd2)
-console.log('1/x + 1/y + 1/z : ', 1 / newOdd1 + 1 / newOddx + 1 / newOdd2)
-
-fund[0] += amount
-netBet[0] += amount
-payout[0] += amount * newOdd1
-
-console.log('total net bet', netBet[0] +netBet[1] + netBet[2]   )
-console.log('liquidity', liquidity )
+console.log('total net bet', netBet[0] + netBet[1] + netBet[2])
+console.log('liquidity', liquidity)
+console.log('payout', payout)
